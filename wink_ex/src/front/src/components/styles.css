@@ -16,7 +16,6 @@
 }
 
 .input_box:focus {
-    box-shadow: 0 0 10px 1000px rgba(0, 0, 0, 0.5);
     outline: none;
 }
 
@@ -43,8 +42,49 @@
     box-shadow: 0 0 5px red;
 }
 
-th, td {
+th, tbody{
   background-color: white;
   color: black;
 }
 
+.text-truncate-container {
+  width: 250px;
+}
+.text-truncate-container p {
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.multi-line-2 {
+  color: black;
+	display: -webkit-inline-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+  }
+
+
+  .multi-line-4 {
+    color: black;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+    }
+
+.card_style{
+  width: 20rem;
+  height: 50rem;
+
+}
+
+
+
+
+
+
+body {
+  background-color:#282c34;
+}

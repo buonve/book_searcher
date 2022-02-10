@@ -34,14 +34,16 @@ export default function RenderList({ items, start }: Props) {
                 />
               </th>
               <td>{bookT.volumeInfo?.title}</td>
-              <td>
+              <td className="multi-line-2">
                 {bookT.volumeInfo?.description === undefined
                   ? 'No description Available!'
                   : bookT.volumeInfo.description}
               </td>
               <td>
-                <a href={bookT.volumeInfo.infoLink} className="btn btn-success">
-                  <button>More Info</button>
+                <a href={bookT.volumeInfo.infoLink}>
+                  <button type="button" className="btn btn-dark">
+                    MORE INFO
+                  </button>
                 </a>
               </td>
             </tr>
