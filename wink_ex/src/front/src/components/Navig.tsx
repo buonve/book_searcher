@@ -14,16 +14,20 @@ const InputFeild: React.FC<Props> = ({ book, setBook }) => {
   const [page, setPage] = useState(0);
 
   useEffect(() => {
-    if (book) {
-      axios(
-        `https://www.googleapis.com/books/v1/volumes?q=${book}&maxResults=${num}`
-      ).then((data) => {
-        setResults(data.data.items);
-      });
+    async function getData() {
+      if (!book) 
+        return
+      
+        await fetch(
+          `https://www.googleapis.com/books/v1/volumes?q=${book}&maxResults=${num}`
+        )
+          .then((res) => res.json())
+          .then((res) => setResults(res.items));
     }
-  }),
-    [book, num];
-
+    getData();
+  },
+  [book, num])
+  
   return (
     <div>
       <form className="input">
@@ -35,7 +39,7 @@ const InputFeild: React.FC<Props> = ({ book, setBook }) => {
           className="input_box"
         ></input>
       </form>
-      <RenderList items={results} />
+      <RenderList items={results} start={0} />
     </div>
   );
 };

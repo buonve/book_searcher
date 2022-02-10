@@ -1,46 +1,53 @@
 import { openStdin } from 'process';
 import * as React from 'react';
 import { book_type } from '../models/book';
+import './styles.css';
 
 interface Props {
   items: any[];
+  start: number;
 }
 
-export default function RenderList({ items }: Props) {
-  let b;
-  items.map((bookT: book_type) => {
-    b = bookT;
-  });
+export default function RenderList({ items, start }: Props) {
+  if (!items) return <>Loading...</>;
   return (
-    <div className="list-group">
-      <a
-        href="#"
-        className="list-group-item list-group-item-action active"
-        aria-current="true"
-      >
-        <div className="d-flex w-100 justify-content-between">
-          <h5 className="mb-1">List group item heading</h5>
-          <small>3 days ago</small>
-        </div>
-        <p className="mb-1">Some placeholder content in a paragraph.</p>
-        <small>And some small print.</small>
-      </a>
-      <a href="#" className="list-group-item list-group-item-action">
-        <div className="d-flex w-100 justify-content-between">
-          <h5 className="mb-1">List group item heading</h5>
-          <small className="text-muted">3 days ago</small>
-        </div>
-        <p className="mb-1">Some placeholder content in a paragraph.</p>
-        <small className="text-muted">And some muted small print.</small>
-      </a>
-      <a href="#" className="list-group-item list-group-item-action">
-        <div className="d-flex w-100 justify-content-between">
-          <h5 className="mb-1">List group item heading</h5>
-          <small className="text-muted">3 days ago</small>
-        </div>
-        <p className="mb-1">Some placeholder content in a paragraph.</p>
-        <small className="text-muted">And some muted small print.</small>
-      </a>
-    </div>
+    <table className="table table-striped table-dark">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Image</th>
+          <th scope="col">Title</th>
+          <th scope="col">Short Description</th>
+          <th scope="col">More Info</th>
+        </tr>
+      </thead>
+      <tbody>
+        {items.map((bookT: book_type) => {
+          return (
+            <tr key={bookT.id}>
+              <td>{start + 1}</td>
+              <th scope="col">
+                <img
+                  src={bookT.volumeInfo?.imageLinks?.smallThumbnail}
+                  className="img-thumbnail"
+                  alt=""
+                />
+              </th>
+              <td>{bookT.volumeInfo?.title}</td>
+              <td>
+                {bookT.volumeInfo?.description === undefined
+                  ? 'No description Available!'
+                  : bookT.volumeInfo.description}
+              </td>
+              <td>
+                <a href={bookT.volumeInfo.infoLink} className="btn btn-success">
+                  <button>More Info</button>
+                </a>
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
   );
 }

@@ -43,3 +43,8 @@
     box-shadow: 0 0 5px red;
 }
 
+th, td {
+  background-color: white;
+  color: black;
+}
+
