@@ -2,13 +2,16 @@ import { openStdin } from 'process';
 import * as React from 'react';
 import { book_type } from '../models/book';
 import './styles.css';
+import  PopAp  from './Popap';
 
 interface Props {
   items: any[];
-  start: number;
+  end: number;
+  i_per_page: number;
+  totalItems: string;
 }
 
-export default function RenderList({ items, start }: Props) {
+export default function RenderList({ items, end, i_per_page }: Props) {
   if (!items) return <>Loading...</>;
   return (
     <table className="table table-striped table-dark">
@@ -22,13 +25,17 @@ export default function RenderList({ items, start }: Props) {
         </tr>
       </thead>
       <tbody>
-        {items.map((bookT: book_type) => {
+        {items.map((bookT: book_type, i) => {
           return (
             <tr key={bookT.id}>
-              <td>{start + 1}</td>
+              <td>{i + end + 1 - i_per_page}</td>
               <th scope="col">
                 <img
-                  src={bookT.volumeInfo?.imageLinks?.smallThumbnail}
+                  src={
+                    bookT.volumeInfo?.imageLinks?.smallThumbnail
+                      ? bookT.volumeInfo?.imageLinks?.smallThumbnail
+                      : '/NOT_FOUND.png'
+                  }
                   className="img-thumbnail"
                   alt=""
                 />
@@ -40,11 +47,9 @@ export default function RenderList({ items, start }: Props) {
                   : bookT.volumeInfo.description}
               </td>
               <td>
-                <a href={bookT.volumeInfo.infoLink}>
-                  <button type="button" className="btn btn-dark">
-                    MORE INFO
-                  </button>
-                </a>
+                <button type="button" className="btn btn-dark" onClick={<PopAp item={bookT}/>}>
+                  MORE INFO
+                </button>
               </td>
             </tr>
           );
