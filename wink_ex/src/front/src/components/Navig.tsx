@@ -31,7 +31,7 @@ const InputFeild: React.FC<Props> = ({ book, setBook }) => {
         .then((res) => (tmp = res))
         .then((res) => setResults(res.items));
 
-      console.log(tmp);
+      //console.log(tmp);
       setMaxItems(tmp.totalItems);
     }
     getData();

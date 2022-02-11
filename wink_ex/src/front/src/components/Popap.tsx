@@ -1,48 +1,43 @@
+import { book_type } from "../models/book";
 
 interface Props {
-  item: any;
+  item: book_type;
+  popUpStatus: boolean;
 }
 
-export default function PopAp({ item }: Props) {
+export default function PopAp(Props: {item: book_type}) {
+  console.log(Props.item);
   return (
-    <div
-      className="modal fade"
-      id="exampleModalCenter"
-      //tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalCenterTitle"
-      aria-hidden="true"
-    >
-      <div className="modal-dialog modal-dialog-centered" role="document">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalLongTitle">
-              Modal title
-            </h5>
-            <button
-              type="button"
-              className="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div className="modal-body">...</div>
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" className="btn btn-primary">
-              Save changes
-            </button>
+    <>
+      <div
+        className="modal"
+        /*tabindex="-1"*/ role="dialog"
+        style={{ display: 'flex', flex: '' }}
+      >
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">{Props.item.volumeInfo?.title}</h5>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <p>{Props.item.volumeInfo?.description}</p>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-primary">
+                <a href={Props.item.volumeInfo.infoLink}>BUY</a>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      </>
   );
 }
