@@ -63,7 +63,6 @@ const InputFeild: React.FC<Props> = ({ book, setBook }) => {
           items={results}
           end={num * page}
           i_per_page={num}
-          totalItems={maxItems}
         />
       ) : (
         <RenderGrid items={results} end={num * page} i_per_page={num} />

@@ -2,12 +2,12 @@ import * as React from 'react';
 import { book_type } from '../models/book';
 import './styles.css';
 import PopAp from './Popap';
+import { totalmem } from 'os';
 
 interface Props {
   items: any[];
   end: number;
   i_per_page: number;
-  totalItems: string;
 }
 
 export default function RenderList({ items, end, i_per_page }: Props) {
@@ -15,11 +15,9 @@ export default function RenderList({ items, end, i_per_page }: Props) {
   const [itemId, setItemId] = React.useState('');
 
   function openPopUp(e: any, item: book_type) {
-    if (itemId === '') {
-      setPopUp(true);
-      setItemId(item.id);
-      console.log('eccoci');
-    } else return;
+		setItemId(item.id)
+		setPopUp(true);
+		console.log('rieccoci')
   }
 
   if (!items) return <>Loading...</>;
@@ -67,9 +65,10 @@ export default function RenderList({ items, end, i_per_page }: Props) {
                   >
                     MORE INFO
                   </button>
-                  {popUp && itemId === bookT.id && (
-                    <PopAp item={bookT}/>
-                  )}
+                  {popUp && itemId === bookT.id?  
+                    <PopAp item={bookT}/> : <></>
+                	}
+				  {}
                 </td>
               </tr>
             );

@@ -1,4 +1,5 @@
 import { book_type } from "../models/book";
+import * as React from 'react';
 
 interface Props {
   item: book_type;
@@ -6,8 +7,17 @@ interface Props {
 }
 
 export default function PopAp(Props: {item: book_type}) {
-  console.log(Props.item);
+
+	let isOpen:boolean = false
+	const [close, setClose] = React.useState(isOpen)
+	React.useEffect(() => {
+		console.log(close)
+		return
+	}, [close])
+	isOpen = close;
+
   return (
+	  !isOpen ?
     <>
       <div
         className="modal"
@@ -22,7 +32,7 @@ export default function PopAp(Props: {item: book_type}) {
                 type="button"
                 className="close"
                 data-dismiss="modal"
-                aria-label="Close"
+                aria-label="Close" onClick={(e) => setClose(true)}
               >
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -38,6 +48,6 @@ export default function PopAp(Props: {item: book_type}) {
           </div>
         </div>
       </div>
-      </>
+      </> : <></>
   );
 }
