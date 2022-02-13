@@ -3,26 +3,30 @@ import * as React from 'react';
 
 interface Props {
   item: book_type;
-  popUpStatus: boolean;
+  popUpStatus: React.Dispatch<React.SetStateAction<boolean>>;
+  setItemId: React.Dispatch<React.SetStateAction<string>>
 }
 
-export default function PopAp(Props: {item: book_type}) {
+export default function PopAp(Props: {item: book_type, popUpStatus:React.Dispatch<React.SetStateAction<boolean>>, setItemId: React.Dispatch<React.SetStateAction<string>>}) {
 
-	let isOpen:boolean = false
-	const [close, setClose] = React.useState(isOpen)
-	React.useEffect(() => {
-		console.log(close)
-		return
-	}, [close])
-	isOpen = close;
+	const [close, setClose] = React.useState(false)
+	function closePopUp() {
+		setClose(true)
+		console.log('QUII '+close)
+		console.log('chiudo...')
+		Props.popUpStatus(close);
+		Props.setItemId('')
+
+	}
+	console.log("apro..."+close)
 
   return (
-	  !isOpen ?
+	  !close ?
     <>
       <div
         className="modal"
         /*tabindex="-1"*/ role="dialog"
-        style={{ display: 'flex', flex: '' }}
+        style={{ display: 'flex', flex: '', zIndex:1}}
       >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
@@ -32,12 +36,19 @@ export default function PopAp(Props: {item: book_type}) {
                 type="button"
                 className="close"
                 data-dismiss="modal"
-                aria-label="Close" onClick={(e) => setClose(true)}
+                aria-label="Close" onClick={(e) => closePopUp()}
               >
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div className="modal-body">
+				  <div className="text-center">
+  					<img src={
+                      Props.item.volumeInfo?.imageLinks?.smallThumbnail
+                        ? Props.item.volumeInfo?.imageLinks?.smallThumbnail
+                        : '/NOT_FOUND.png'
+                    } className="rounded" alt="..."/>
+				</div>
               <p>{Props.item.volumeInfo?.description}</p>
             </div>
             <div className="modal-footer">

@@ -11,13 +11,18 @@ interface Props {
 }
 
 export default function RenderList({ items, end, i_per_page }: Props) {
-  const [popUp, setPopUp] = React.useState(false);
+const [popUp, setPopUp] = React.useState(false);
   const [itemId, setItemId] = React.useState('');
 
   function openPopUp(e: any, item: book_type) {
+	  if(itemId === '') {
 		setItemId(item.id)
 		setPopUp(true);
-		console.log('rieccoci')
+		console.log('eccoci')
+	  }
+	  else
+	 	return
+	
   }
 
   if (!items) return <>Loading...</>;
@@ -66,7 +71,7 @@ export default function RenderList({ items, end, i_per_page }: Props) {
                     MORE INFO
                   </button>
                   {popUp && itemId === bookT.id?  
-                    <PopAp item={bookT}/> : <></>
+                    <PopAp item={bookT} popUpStatus={setPopUp} setItemId={setItemId}/> : <></>
                 	}
 				  {}
                 </td>
