@@ -1,4 +1,6 @@
 import { book_type } from '../models/book';
+import * as React from 'react';
+import PopAp from './Popap'
 
 interface Props {
   items: any[];
@@ -7,6 +9,18 @@ interface Props {
 }
 
 export default function RenderGrid({ items, end, i_per_page }: Props) {
+	const [popUp, setPopUp] = React.useState(false);
+	const [itemId, setItemId] = React.useState('');
+	function openPopUp(e: any, item: book_type) {
+		if(itemId === '') {
+		  setItemId(item.id)
+		  setPopUp(true);
+		  console.log('eccoci')
+		}
+		else
+		   return
+	  
+	}
   if (!items) return <>Loading...</>;
 
   return (
@@ -33,11 +47,14 @@ export default function RenderGrid({ items, end, i_per_page }: Props) {
                     : bookT.volumeInfo?.description}
                 </p>
                 <p className="card-text">
-                  <a href={bookT.volumeInfo.infoLink}>
-                    <button type="button" className="btn btn-dark">
+                    <button type="button" className="btn btn-dark" onClick={(e) => {
+                      openPopUp(e, bookT);
+                    }}>
                       MORE INFO
                     </button>
-                  </a>
+					{popUp && itemId === bookT.id?  
+                    <PopAp item={bookT} popUpStatus={setPopUp} setItemId={setItemId}/> : <></>
+                	}
                 </p>
               </div>
             </div>
